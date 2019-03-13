@@ -15,6 +15,10 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+drop DATABASE if EXISTS `cache_cloud`;
+create database `cache_cloud` default character set utf8 COLLATE  utf8_general_ci;
+use `cache_cloud`;
+
 --
 -- Table structure for table `QRTZ_BLOB_TRIGGERS`
 --
@@ -266,7 +270,7 @@ CREATE TABLE `app_audit` (
   `info` varchar(360) NOT NULL COMMENT '申请描述',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0:等待审批; 1:审批通过; -1:驳回',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modify_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modify_time` timestamp NOT NULL DEFAULT '2018-01-01 00:00:00',
   `refuse_reason` varchar(360) DEFAULT NULL COMMENT '驳回理由',
   PRIMARY KEY (`id`),
   KEY `idx_appid` (`app_id`),
@@ -499,7 +503,7 @@ CREATE TABLE `app_hour_command_statistics` (
   `command_name` varchar(60) NOT NULL COMMENT '命令名称',
   `command_count` bigint(20) NOT NULL COMMENT '命令执行次数',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `modify_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+  `modify_time` timestamp NOT NULL DEFAULT '2018-01-01 00:00:00' COMMENT '修改时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_id` (`app_id`,`command_name`,`collect_time`),
   KEY `idx_create_time` (`create_time`),
@@ -530,7 +534,7 @@ CREATE TABLE `app_hour_statistics` (
   `object_size` bigint(20) NOT NULL COMMENT '每小时存储对象数最大值',
   `accumulation` int(10) NOT NULL DEFAULT '0' COMMENT '每小时参与累加实例数最小值',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `modify_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '每小时修改时间最大值',
+  `modify_time` timestamp NOT NULL DEFAULT '2018-01-01 00:00:00' COMMENT '每小时修改时间最大值',
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_id` (`app_id`,`collect_time`),
   KEY `idx_create_time` (`create_time`),
@@ -552,7 +556,7 @@ CREATE TABLE `app_minute_command_statistics` (
   `command_name` varchar(60) NOT NULL COMMENT '命令名称',
   `command_count` bigint(20) NOT NULL COMMENT '命令执行次数',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `modify_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+  `modify_time` timestamp NOT NULL DEFAULT '2018-01-01 00:00:00' COMMENT '修改时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_id` (`app_id`,`collect_time`,`command_name`),
   KEY `idx_create_time` (`create_time`),
@@ -583,7 +587,7 @@ CREATE TABLE `app_minute_statistics` (
   `object_size` bigint(20) NOT NULL COMMENT '每分钟存储对象数最大值',
   `accumulation` int(10) NOT NULL DEFAULT '0' COMMENT '参与累加实例数',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `modify_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+  `modify_time` timestamp NOT NULL DEFAULT '2018-01-01 00:00:00' COMMENT '修改时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_id` (`app_id`,`collect_time`),
   KEY `idx_create_time` (`create_time`),
@@ -715,7 +719,7 @@ CREATE TABLE `instance_statistics` (
   `misses` bigint(255) NOT NULL COMMENT 'miss数',
   `hits` bigint(255) NOT NULL COMMENT '命中数',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modify_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modify_time` timestamp NOT NULL DEFAULT '2018-01-01 00:00:00',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ip` (`ip`,`port`),
   KEY `app_id` (`app_id`),
@@ -741,7 +745,7 @@ CREATE TABLE `machine_info` (
   `cpu` mediumint(24) unsigned NOT NULL COMMENT 'cpu数量',
   `virtual` tinyint(8) unsigned NOT NULL DEFAULT '1' COMMENT '是否虚拟，0表示否，1表示是',
   `real_ip` varchar(16) COLLATE utf8_bin NOT NULL COMMENT '宿主机ip',
-  `service_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '上线时间',
+  `service_time` timestamp NOT NULL DEFAULT '2018-01-01 00:00:00' COMMENT '上线时间',
   `fault_count` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '故障次数',
   `modify_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   `warn` tinyint(255) unsigned NOT NULL DEFAULT '1' COMMENT '是否启用报警，0不启用，1启用',
@@ -772,7 +776,7 @@ CREATE TABLE `machine_statistics` (
   `memory_free` varchar(120) NOT NULL COMMENT '内存剩余',
   `memory_total` varchar(120) NOT NULL COMMENT '总内存量',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `modify_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+  `modify_time` timestamp NOT NULL DEFAULT '2018-01-01 00:00:00' COMMENT '修改时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uidx_ip` (`ip`),
   KEY `host_id` (`host_id`)
@@ -810,7 +814,7 @@ CREATE TABLE `instance_slow_log` (
   `cost_time` int(11) NOT NULL COMMENT '耗时(微妙)',
   `command` varchar(255) NOT NULL COMMENT '执行命令',
   `execute_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '执行时间点',
-  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '记录创建时间',
+  `create_time` timestamp NOT NULL DEFAULT '2018-01-01 00:00:00' COMMENT '记录创建时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `slowlogkey` (`instance_id`,`slow_log_id`,`execute_time`),
   KEY `idx_app_create_time` (`app_id`,`create_time`)
@@ -842,7 +846,7 @@ CREATE TABLE `system_config` (
   `config_value` varchar(512) NOT NULL COMMENT '配置value',
   `info` varchar(255) NOT NULL COMMENT '配置说明',
   `status` tinyint NOT NULL COMMENT '1:可用,0:不可用',
-  `order_id` int NOT NULL COMMENT '顺序', 
+  `order_id` int NOT NULL COMMENT '顺序',
   PRIMARY KEY (`config_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统配置';
 
