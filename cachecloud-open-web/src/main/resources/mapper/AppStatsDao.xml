@@ -246,7 +246,7 @@
         from <include refid="select_table"/>
         where app_id = #{appId}
         and collect_time between #{td.begin} and #{td.end}
-        group by command_name
+        group by command_name,collect_time
         order by sum(command_count) desc
         limit #{top};
     </select>

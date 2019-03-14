@@ -81,7 +81,7 @@
 	        	</when>
 	        </choose>
     	</where>
-    	group by instance_id order by exceptionCount desc;
+    	group by instance_id,app_id order by exceptionCount desc;
     </select>
     
     
